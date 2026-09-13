@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClubPulse IIIT Jabalpur | Campus Club Events & Notification Hub</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Dynamic Top Notification Bar (Hidden by default, shown ONLY when an active alert triggers) -->
+  <aside id="topNotificationBar" class="top-notification-bar hidden" aria-label="Upcoming Event Alert">
+    <div class="notif-bar-inner">
+      <div class="notif-bar-left">
+        <span class="pulse-icon">🔔</span>
+        <span id="topNotifMessage" class="notif-bar-text"><strong>Alert:</strong> Upcoming session starting soon!</span>
+      </div>
+      <div class="notif-bar-actions">
+        <button id="btnTopNotifView" class="btn-notif-view">View Event</button>
+        <button id="btnTopNotifClear" class="btn-notif-dismiss" title="Clear and dismiss notification">&times; Dismiss</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Navigation Header -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="brand">
+        <div class="brand-icon">🏛️</div>
+        <div class="brand-text">
+          <h1>Club<span>Pulse</span></h1>
+          <span class="tagline">IIIT Jabalpur &bull; Club Hub</span>
+        </div>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search events, clubs (TPC, Saaz, Football), or venues (CC-1, OAT, SAC)..." />
+        <button id="clearSearchBtn" class="clear-search hidden">&times;</button>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="nav-actions">
+        <!-- Hackathon Demo Tester Button -->
+        <button id="btnQuickDemoAlert" class="btn-demo-pill" title="Trigger a live sample notification for judges">
+          ⚡ Test Alert
+        </button>
+
+        <!-- Club Auth State (Dynamic) -->
+        <div id="authContainer" class="auth-wrapper">
+          <!-- Shown when NOT logged in -->
+          <div id="loggedOutView" class="auth-state">
+            <button id="btnOpenLoginModal" class="btn btn-secondary btn-login" title="Login as an official IIIT Jabalpur Club">
+              <span class="icon">🔐</span> Club Login
+            </button>
+            <button id="btnOpenPostModal" class="btn btn-primary" title="Announce session (Requires club login)">
+              <span class="icon">➕</span> Post Club Event
+            </button>
+          </div>
+
+          <!-- Shown when LOGGED IN as a Club -->
+          <div id="loggedInView" class="auth-state hidden">
+            <div class="club-logged-badge" id="loggedClubBadge">
+              <span id="loggedClubIcon">🏛️</span>
+              <span id="loggedClubName">The Programming Club</span>
+            </div>
+            <button id="btnOpenPostModalAuth" class="btn btn-primary">
+              <span class="icon">➕</span> Post Session
+            </button>
+            <button id="btnLogout" class="btn btn-text-logout" title="Log out of club portal">
+              Logout
+            </button>
+          </div>
+        </div>
+
+        <!-- Notification Bell -->
+        <div class="notif-wrapper">
+          <button id="btnToggleNotif" class="btn btn-icon" title="View Notifications & Reminders">
+            <span class="bell-icon">🔔</span>
+            <span id="notifBadge" class="badge">0</span>
+          </button>
+
+          <!-- Notification Dropdown Panel -->
+          <div id="notifDropdown" class="notif-panel hidden">
+            <div class="notif-panel-header">
+              <div class="notif-title">
+                <h3>Notifications & Reminders</h3>
+                <span id="permissionStatus" class="permission-pill">Browser: Checking...</span>
+              </div>
+              <button id="btnClearNotifs" class="btn-text" title="Clear all alerts">Clear All</button>
+            </div>
+            
+            <div class="notif-demo-bar">
+              <span>Demo alert trigger:</span>
+              <button id="btnPanelDemoTrigger" class="btn-chip-demo">⚡ Test Alert</button>
+            </div>
+
+            <div class="notif-section">
+              <h4>Active Event Reminders</h4>
+              <div id="activeRemindersList" class="reminders-list">
+                <!-- Injected by JS -->
+              </div>
+            </div>
+
+            <div class="notif-section">
+              <h4>Recent Alerts Log</h4>
+              <div id="notifList" class="notif-list">
+                <!-- Injected by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-content">
+    <!-- Hero / Campus Banner -->
+    <section class="hero-section">
+      <div class="hero-left">
+        <div class="college-tag">PDPM IIITDM JABALPUR</div>
+        <h2>Never Miss an IIIT Jabalpur Session Again.</h2>
+        <p>Centralized schedule for all <strong>7 Technical</strong>, <strong>6 Cultural</strong>, and <strong>12 Sports Clubs</strong>. Clubs post verified sessions with venue & timing; students get advance alerts!</p>
+        <div class="server-status-pill" id="serverStatusPill">
+          <span class="dot"></span> <span id="serverStatusText">Connecting to backend...</span>
+        </div>
+      </div>
+      <div class="stats-cards">
+        <div class="stat-card">
+          <span class="stat-number">25</span>
+          <span class="stat-label">Campus Clubs</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" id="statEventsCount">0</span>
+          <span class="stat-label">Upcoming Sessions</span>
+        </div>
+        <div class="stat-card highlight">
+          <span class="stat-number" id="statRemindersCount">0</span>
+          <span class="stat-label">My Reminders</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filters & Category Navigation -->
+    <section class="filters-bar">
+      <!-- Major Category Chips -->
+      <div class="filter-categories" id="filterCategories">
+        <button class="filter-chip active" data-category="All">All Clubs (25)</button>
+        <button class="filter-chip" data-category="Technical">💻 7 Technical Clubs</button>
+        <button class="filter-chip" data-category="Cultural">🎭 6 Cultural Clubs</button>
+        <button class="filter-chip" data-category="Sports">🏆 12 Sports Clubs</button>
+      </div>
+
+      <!-- Specific Club & Timing Dropdowns -->
+      <div class="filter-controls-group">
+        <select id="specificClubSelect" class="select-control" title="Filter by specific IIIT Jabalpur Club">
+          <option value="all">-- All 25 Clubs --</option>
+          <optgroup label="Technical Clubs (7)">
+            <option value="The Programming Club">The Programming Club (TPC)</option>
+            <option value="Racing Club">Racing Club</option>
+            <option value="Business and Management Club">Business and Management Club (BMC)</option>
+            <option value="Electronics and Robotics Society">Electronics and Robotics Society (ERS)</option>
+            <option value="CAD and 3D Printing">CAD and 3D Printing</option>
+            <option value="Astronomy and Physics Society">Astronomy and Physics Society (APS)</option>
+            <option value="Aerofabrication Club">Aerofabrication Club</option>
+          </optgroup>
+          <optgroup label="Cultural Clubs (6)">
+            <option value="Saaz">Saaz (Music)</option>
+            <option value="Jazbaat">Jazbaat (Dramatics)</option>
+            <option value="Aavartan">Aavartan (Dance)</option>
+            <option value="Samvad">Samvad (Literature & Quizzing)</option>
+            <option value="Abhivyakti">Abhivyakti (Arts & Design)</option>
+            <option value="Shutterbox">Shutterbox (Photography & Film)</option>
+          </optgroup>
+          <optgroup label="Sports Clubs (12)">
+            <option value="Volleyball">Volleyball Club</option>
+            <option value="Football">Football Club</option>
+            <option value="Cricket">Cricket Club</option>
+            <option value="Basketball">Basketball Club</option>
+            <option value="Athletics">Athletics Club</option>
+            <option value="Gymnasium">Gymnasium Club</option>
+            <option value="Chess">Chess Club</option>
+            <option value="Carrom">Carrom Club</option>
+            <option value="Kabaddi">Kabaddi Club</option>
+            <option value="Table Tennis">Table Tennis Club</option>
+            <option value="Badminton">Badminton Club</option>
+            <option value="Lawn Tennis">Lawn Tennis Club</option>
+          </optgroup>
+        </select>
+
+        <select id="timeFilterSelect" class="select-control" title="Filter by date">
+          <option value="all">All Dates</option>
+          <option value="today">Today Only</option>
+          <option value="tomorrow">Tomorrow</option>
+          <option value="this_week">This Week</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Events Feed Section -->
+    <section class="events-section">
+      <div class="section-header">
+        <div class="section-title">
+          <h3 id="feedHeading">Upcoming Campus Sessions</h3>
+          <span id="eventsCountBadge" class="pill-count">0 events</span>
+        </div>
+        <div class="view-options">
+          <button id="btnRefreshEvents" class="btn-text-muted" title="Fetch latest events from server">
+            🔄 Refresh Events
+          </button>
+        </div>
+      </div>
+
+      <!-- Events Grid Container -->
+      <div id="eventsGrid" class="events-grid">
+        <!-- Event Cards are dynamically injected via app.js -->
+      </div>
+
+      <!-- Empty State -->
+      <div id="emptyState" class="empty-state hidden">
+        <div class="empty-icon">📅</div>
+        <h3>No matching sessions found</h3>
+        <p>Try switching filters or log in as a club to publish a new session!</p>
+        <button id="btnEmptyPost" class="btn btn-primary">Post New Event</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal: Club Login -->
+  <div id="clubLoginModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card modal-auth-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span class="icon">🔐</span>
+          <h3>Official Club Login</h3>
+        </div>
+        <button class="btn-close-modal" id="btnCloseLoginModal">&times;</button>
+      </div>
+
+      <form id="clubLoginForm" class="modal-form">
+        <div class="auth-notice-box">
+          <p>Only verified <strong>IIIT Jabalpur Clubs</strong> can announce sessions on the campus feed.</p>
+          <div class="credential-tip">
+            💡 <strong>Judge Demo Hint:</strong> Select any club; password is <code>iiitdmj123</code>.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="loginClubSelect">Select Your Club (Username) <span class="req">*</span></label>
+          <select id="loginClubSelect" required>
+            <optgroup label="Technical Clubs (7)">
+              <option value="The Programming Club">The Programming Club (TPC)</option>
+              <option value="Racing Club">Racing Club</option>
+              <option value="Business and Management Club">Business and Management Club</option>
+              <option value="Electronics and Robotics Society">Electronics and Robotics Society</option>
+              <option value="CAD and 3D Printing">CAD and 3D Printing</option>
+              <option value="Astronomy and Physics Society">Astronomy and Physics Society</option>
+              <option value="Aerofabrication Club">Aerofabrication Club</option>
+            </optgroup>
+            <optgroup label="Cultural Clubs (6)">
+              <option value="Saaz">Saaz (Music)</option>
+              <option value="Jazbaat">Jazbaat (Dramatics)</option>
+              <option value="Aavartan">Aavartan (Dance)</option>
+              <option value="Samvad">Samvad (Literature)</option>
+              <option value="Abhivyakti">Abhivyakti (Arts)</option>
+              <option value="Shutterbox">Shutterbox (Photography)</option>
+            </optgroup>
+            <optgroup label="Sports Clubs (12)">
+              <option value="Volleyball">Volleyball</option>
+              <option value="Football">Football</option>
+              <option value="Cricket">Cricket</option>
+              <option value="Basketball">Basketball</option>
+              <option value="Athletics">Athletics</option>
+              <option value="Gymnasium">Gymnasium</option>
+              <option value="Chess">Chess</option>
+              <option value="Carrom">Carrom</option>
+              <option value="Kabaddi">Kabaddi</option>
+              <option value="Table Tennis">Table Tennis</option>
+              <option value="Badminton">Badminton</option>
+              <option value="Lawn Tennis">Lawn Tennis</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="loginPassword">Club Password <span class="req">*</span></label>
+          <input type="password" id="loginPassword" placeholder="Enter club password (iiitdmj123)" required />
+        </div>
+
+        <div id="loginErrorMsg" class="form-error hidden"></div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btnCancelLogin">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btnLoginSubmit">Log In as Club</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Post New Club Event (Club Only) -->
+  <div id="postEventModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span class="icon">📢</span>
+          <h3>Announce Club Event / Session</h3>
+        </div>
+        <button class="btn-close-modal" id="btnClosePostModal">&times;</button>
+      </div>
+
+      <form id="postEventForm" class="modal-form">
+        <div class="club-posting-as-bar" id="postingAsBar">
+          Posting as: <strong id="postingAsClubName">The Programming Club</strong>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group flex-2">
+            <label for="eventTitle">Event / Session Title <span class="req">*</span></label>
+            <input type="text" id="eventTitle" placeholder="e.g. CodeRumble: Competitive Programming Contest" required />
+          </div>
+          <div class="form-group flex-1">
+            <label for="eventCategory">Category</label>
+            <input type="text" id="eventCategory" readonly class="input-readonly" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label for="eventSpeaker">Session Lead / Speaker / Host</label>
+            <input type="text" id="eventSpeaker" placeholder="e.g. Club Core Team" />
+          </div>
+          <div class="form-group flex-1">
+            <label for="eventCapacity">Seats / Participant Limit</label>
+            <input type="number" id="eventCapacity" placeholder="e.g. 100 (0 for open entry)" min="0" value="80" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label for="eventDateTime">Date & Time <span class="req">*</span></label>
+            <input type="datetime-local" id="eventDateTime" required />
+          </div>
+          <div class="form-group flex-1">
+            <label for="eventVenue">Campus Venue (IIIT Jabalpur) <span class="req">*</span></label>
+            <input type="text" id="eventVenue" list="iiitjVenues" placeholder="e.g. CC-1, CR-101, OAT, SAC" required />
+            <datalist id="iiitjVenues">
+              <option value="Computer Center (CC-1)"></option>
+              <option value="Computer Center (CC-2)"></option>
+              <option value="LHC L-101"></option>
+              <option value="LHC L-102"></option>
+              <option value="CR-101 (Classroom Complex)"></option>
+              <option value="CR-102 (Classroom Complex)"></option>
+              <option value="Student Activity Center (SAC)"></option>
+              <option value="Open Air Theatre (OAT)"></option>
+              <option value="Central Workshop & Mechatronics Lab"></option>
+              <option value="Main Football Ground"></option>
+              <option value="Basketball / Tennis Courts"></option>
+              <option value="Hall of Residence 3 / 4 Common Hall"></option>
+            </datalist>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="eventRegLink">Registration Link / WhatsApp Group (Optional)</label>
+          <input type="url" id="eventRegLink" placeholder="https://forms.gle/... or club link" />
+        </div>
+
+        <div class="form-group">
+          <label for="eventDesc">Description & Agenda <span class="req">*</span></label>
+          <textarea id="eventDesc" rows="3" placeholder="Explain what the session is about, what students need to bring (e.g. laptops, sports gear), and who can attend..." required></textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btnCancelPost">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btnSubmitPost">Publish Session</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Event Details & Notify Dialog -->
+  <div id="eventDetailModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card detail-card">
+      <div class="modal-header">
+        <span id="detailCategoryPill" class="category-pill">Category</span>
+        <button class="btn-close-modal" id="btnCloseDetailModal">&times;</button>
+      </div>
+
+      <div class="detail-body">
+        <div class="detail-club-badge" id="detailClub">Club Name</div>
+        <h2 id="detailTitle">Event Title</h2>
+        
+        <div class="detail-meta-grid">
+          <div class="meta-item">
+            <span class="meta-icon">📅</span>
+            <div>
+              <strong id="detailDate">Date & Time</strong>
+              <small id="detailCountdown">Starts in ...</small>
+            </div>
+          </div>
+          <div class="meta-item">
+            <span class="meta-icon">📍</span>
+            <div>
+              <strong id="detailVenue">Venue Location</strong>
+              <small>IIIT Jabalpur Campus</small>
+            </div>
+          </div>
+          <div class="meta-item">
+            <span class="meta-icon">👤</span>
+            <div>
+              <strong id="detailSpeaker">Coordinator / Lead</strong>
+              <small>Session Host</small>
+            </div>
+          </div>
+          <div class="meta-item">
+            <span class="meta-icon">👥</span>
+            <div>
+              <strong id="detailSeats">Capacity</strong>
+              <small>Entry Limit</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="detail-desc-box">
+          <h4>Session Details</h4>
+          <p id="detailDescription">Event description...</p>
+        </div>
+
+        <!-- Notification / Reminder Settings Box -->
+        <div class="reminder-action-box">
+          <div class="reminder-prompt">
+            <span class="reminder-icon">🔔</span>
+            <div>
+              <h4>Get Notified Before This Session</h4>
+              <p>Choose when you want to receive an advance alert on your device:</p>
+            </div>
+          </div>
+          
+          <div class="reminder-selector-row">
+            <select id="reminderLeadTime" class="select-control">
+              <option value="15">15 Minutes Before</option>
+              <option value="30">30 Minutes Before</option>
+              <option value="60">1 Hour Before</option>
+              <option value="1440">1 Day Before</option>
+            </select>
+            <button id="btnSubscribeReminder" class="btn btn-notify-action">
+              <span class="bell-icon">🔔</span> Notify Me
+            </button>
+          </div>
+        </div>
+
+        <!-- Action Links -->
+        <div class="detail-actions">
+          <button id="btnDownloadIcs" class="btn btn-outline">
+            📅 Add to Calendar (.ics)
+          </button>
+          <a id="btnExternalReg" href="#" target="_blank" class="btn btn-primary hidden">
+            Registration Link ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Toast Container for Alerts -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="campus-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <strong>ClubPulse &bull; PDPM IIITDM Jabalpur</strong> (7 Technical &bull; 6 Cultural &bull; 12 Sports Clubs)
+      </div>
+      <div class="footer-meta">
+        <span>College Hackathon Prototype</span>
+        <span>•</span>
+        <span>Full-Stack Node.js + Express REST API Backend</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>

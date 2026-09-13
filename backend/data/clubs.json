@@ -1,0 +1,29 @@
+[
+  { "id": "club-tpc", "name": "The Programming Club", "category": "Technical", "password": "iiitdmj123", "icon": "💻" },
+  { "id": "club-racing", "name": "Racing Club", "category": "Technical", "password": "iiitdmj123", "icon": "🏎️" },
+  { "id": "club-bmc", "name": "Business and Management Club", "category": "Technical", "password": "iiitdmj123", "icon": "📈" },
+  { "id": "club-ers", "name": "Electronics and Robotics Society", "category": "Technical", "password": "iiitdmj123", "icon": "🤖" },
+  { "id": "club-cad", "name": "CAD and 3D Printing", "category": "Technical", "password": "iiitdmj123", "icon": "📐" },
+  { "id": "club-aps", "name": "Astronomy and Physics Society", "category": "Technical", "password": "iiitdmj123", "icon": "🔭" },
+  { "id": "club-aero", "name": "Aerofabrication Club", "category": "Technical", "password": "iiitdmj123", "icon": "✈️" },
+
+  { "id": "club-saaz", "name": "Saaz", "category": "Cultural", "password": "iiitdmj123", "icon": "🎵" },
+  { "id": "club-jazbaat", "name": "Jazbaat", "category": "Cultural", "password": "iiitdmj123", "icon": "🎭" },
+  { "id": "club-aavartan", "name": "Aavartan", "category": "Cultural", "password": "iiitdmj123", "icon": "💃" },
+  { "id": "club-samvad", "name": "Samvad", "category": "Cultural", "password": "iiitdmj123", "icon": "📚" },
+  { "id": "club-abhivyakti", "name": "Abhivyakti", "category": "Cultural", "password": "iiitdmj123", "icon": "🎨" },
+  { "id": "club-shutterbox", "name": "Shutterbox", "category": "Cultural", "password": "iiitdmj123", "icon": "📷" },
+
+  { "id": "club-volleyball", "name": "Volleyball", "category": "Sports", "password": "iiitdmj123", "icon": "🏐" },
+  { "id": "club-football", "name": "Football", "category": "Sports", "password": "iiitdmj123", "icon": "⚽" },
+  { "id": "club-cricket", "name": "Cricket", "category": "Sports", "password": "iiitdmj123", "icon": "🏏" },
+  { "id": "club-basketball", "name": "Basketball", "category": "Sports", "password": "iiitdmj123", "icon": "🏀" },
+  { "id": "club-athletics", "name": "Athletics", "category": "Sports", "password": "iiitdmj123", "icon": "🏃" },
+  { "id": "club-gymnasium", "name": "Gymnasium", "category": "Sports", "password": "iiitdmj123", "icon": "🏋️" },
+  { "id": "club-chess", "name": "Chess", "category": "Sports", "password": "iiitdmj123", "icon": "♟️" },
+  { "id": "club-carrom", "name": "Carrom", "category": "Sports", "password": "iiitdmj123", "icon": "🎯" },
+  { "id": "club-kabaddi", "name": "Kabaddi", "category": "Sports", "password": "iiitdmj123", "icon": "🤼" },
+  { "id": "club-table-tennis", "name": "Table Tennis", "category": "Sports", "password": "iiitdmj123", "icon": "🏓" },
+  { "id": "club-badminton", "name": "Badminton", "category": "Sports", "password": "iiitdmj123", "icon": "🏸" },
+  { "id": "club-lawn-tennis", "name": "Lawn Tennis", "category": "Sports", "password": "iiitdmj123", "icon": "🎾" }
+]

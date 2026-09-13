@@ -1,0 +1,12 @@
+{
+  "name": "clubpulse-iiit-jabalpur",
+  "version": "1.0.0",
+  "description": "IIIT Jabalpur Campus Club Events & Advance Reminder Platform",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "node backend/server.js",
+    "install-backend": "cd backend && npm install"
+  },
+  "keywords": ["iiit-jabalpur", "campus-events", "hackathon", "express"],
+  "author": "Hackathon Team"
+}
