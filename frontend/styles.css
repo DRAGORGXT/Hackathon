@@ -1615,3 +1615,816 @@ body {
     width: 100%;
   }
 }
+
+/* ==========================================================================
+   Role Authentication Tabs (Club vs Administrator)
+   ========================================================================== */
+.auth-role-tabs {
+  display: flex;
+  background: var(--bg-surface-alt);
+  padding: 4px;
+  border-radius: var(--radius-md);
+  margin-bottom: 20px;
+  gap: 6px;
+  border: 1px solid var(--border);
+}
+
+.auth-tab {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 9px 14px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.auth-tab:hover {
+  color: var(--text-main);
+}
+
+.auth-tab.active {
+  background: #ffffff;
+  color: var(--primary);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Admin Nav State */
+.admin-logged-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #ede9fe 0%, #fae8ff 100%);
+  border: 1px solid #d8b4fe;
+  color: #6b21a8;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.btn-admin-dash {
+  background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 6px rgba(124, 58, 237, 0.25);
+}
+
+.btn-admin-dash:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
+}
+
+/* ==========================================================================
+   Admin Session Management Dashboard Modal
+   ========================================================================== */
+.modal-admin-card {
+  max-width: 1040px !important;
+  width: 95vw;
+}
+
+.modal-club-mgmt-card {
+  max-width: 860px !important;
+  width: 95vw;
+}
+
+.modal-subtitle {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* Overview Metrics */
+.admin-metrics-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 18px 0;
+}
+
+.metric-box {
+  background: var(--bg-surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.metric-box.active {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.metric-box.active .metric-val {
+  color: #16a34a;
+}
+
+.metric-box.closed {
+  background: #fef2f2;
+  border-color: #fecaca;
+}
+
+.metric-box.closed .metric-val {
+  color: #dc2626;
+}
+
+.metric-val {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1;
+}
+
+.metric-lbl {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Toolbar & Filters */
+.admin-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.admin-filter-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.admin-filter-pill {
+  background: var(--bg-surface-alt);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 6px 13px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.admin-filter-pill:hover {
+  background: #ffffff;
+  color: var(--text-main);
+}
+
+.admin-filter-pill.active {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+.admin-search-box {
+  flex: 1;
+  max-width: 320px;
+  padding: 8px 14px;
+  font-size: 0.84rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  outline: none;
+  background: var(--bg-surface-alt);
+}
+
+.admin-search-box:focus {
+  background: #ffffff;
+  border-color: var(--primary);
+}
+
+/* Admin Table */
+.admin-table-container {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: #ffffff;
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.86rem;
+}
+
+.admin-table th {
+  background: #f8fafc;
+  padding: 12px 16px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.admin-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.admin-table tr:hover td {
+  background: #fafafa;
+}
+
+.admin-session-title {
+  font-weight: 700;
+  color: var(--text-main);
+  max-width: 240px;
+  display: block;
+}
+
+.admin-session-cat {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.admin-club-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+/* Status Badges */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.74rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.status-pill.status-active {
+  background: #dcfce7;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+
+.status-pill.status-closed-admin {
+  background: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.status-pill.status-closed-club {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+}
+
+/* Action Button Styles */
+.admin-action-btns {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.btn-action-view {
+  background: var(--bg-surface-alt);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-action-view:hover {
+  background: #e2e8f0;
+}
+
+.btn-action-close {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-action-close:hover {
+  background: #fee2e2;
+}
+
+.btn-action-reopen {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #16a34a;
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-action-reopen:hover {
+  background: #dcfce7;
+}
+
+.btn-action-delete {
+  background: transparent;
+  border: 1px solid transparent;
+  color: #94a3b8;
+  padding: 5px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 0.76rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-action-delete:hover {
+  color: #ef4444;
+  background: #fee2e2;
+  border-color: #fca5a5;
+}
+
+.btn-action-edit {
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+  color: #4f46e5;
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-action-edit:hover {
+  background: #e0e7ff;
+}
+
+/* Club Management List */
+.club-mgmt-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 480px;
+  overflow-y: auto;
+  padding: 4px 0;
+}
+
+.club-mgmt-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.club-mgmt-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.club-mgmt-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.club-mgmt-title {
+  font-weight: 800;
+  font-size: 0.98rem;
+  color: var(--text-main);
+}
+
+.club-mgmt-meta {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.admin-locked-banner {
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  color: #9f1239;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+/* Feed Card Manage Button */
+.btn-manage-badge {
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+  color: #4338ca;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-manage-badge:hover {
+  background: #e0e7ff;
+}
+
+/* ==========================================================================
+   CAMPUS SLIDING ANNOUNCEMENT TICKER (Senate, Gymkhana, Campus Fests)
+   ========================================================================== */
+.announcement-ticker-container {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(90deg, #1e1b4b 0%, #312e81 40%, #4338ca 100%);
+  color: #ffffff;
+  height: 44px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(30, 27, 75, 0.25);
+  position: relative;
+  z-index: 90;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.ticker-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f59e0b;
+  color: #1e1b4b;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 0 16px;
+  height: 100%;
+  white-space: nowrap;
+  flex-shrink: 0;
+  z-index: 2;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.ticker-badge-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ef4444;
+  animation: tickerPulse 1.4s infinite ease-in-out;
+}
+
+@keyframes tickerPulse {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  50% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.7; }
+}
+
+.ticker-viewport {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.ticker-track {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 36px;
+  will-change: transform;
+  animation: marqueeScroll 45s linear infinite;
+  padding-left: 100%;
+}
+
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #f1f5f9;
+}
+
+.ticker-tag {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ticker-tag.tarang {
+  background: rgba(244, 63, 94, 0.25);
+  border-color: #f43f5e;
+  color: #fecdd3;
+}
+
+.ticker-tag.abhikalpan {
+  background: rgba(14, 165, 233, 0.25);
+  border-color: #0ea5e9;
+  color: #bae6fd;
+}
+
+.ticker-tag.gusto {
+  background: rgba(16, 185, 129, 0.25);
+  border-color: #10b981;
+  color: #a7f3d0;
+}
+
+.ticker-tag.senate {
+  background: rgba(245, 158, 11, 0.25);
+  border-color: #f59e0b;
+  color: #fde68a;
+}
+
+.ticker-separator {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.8rem;
+}
+
+/* ==========================================================================
+   INTERESTED REACTION BUTTON & CROWD BADGES
+   ========================================================================== */
+.btn-interested {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-full);
+  padding: 5px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-interested:hover {
+  background: #fef3c7;
+  border-color: #f59e0b;
+  color: #b45309;
+  transform: translateY(-1px);
+}
+
+.btn-interested.interested-active {
+  background: #fef3c7;
+  border-color: #f59e0b;
+  color: #b45309;
+  font-weight: 700;
+  box-shadow: 0 1px 3px rgba(245, 158, 11, 0.25);
+}
+
+.btn-interested.interested-active .star-icon {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 2px #f59e0b);
+}
+
+.interested-pill-count {
+  background: rgba(0, 0, 0, 0.08);
+  padding: 1px 6px;
+  border-radius: 10px;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.btn-interested.interested-active .interested-pill-count {
+  background: #f59e0b;
+  color: #ffffff;
+}
+
+/* Detail Modal Interested Row */
+.detail-interest-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding: 10px 14px;
+  background: #fffbeb;
+  border: 1px solid #fef3c7;
+  border-radius: var(--radius-md);
+  flex-wrap: wrap;
+}
+
+.btn-interested-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  border: 1.5px solid #f59e0b;
+  border-radius: var(--radius-full);
+  padding: 8px 18px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #92400e;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-interested-action:hover {
+  background: #fef3c7;
+  transform: translateY(-1px);
+}
+
+.btn-interested-action.interested-active {
+  background: #f59e0b;
+  color: #ffffff;
+}
+
+.btn-interested-action.interested-active .interested-pill-count {
+  background: #ffffff;
+  color: #92400e;
+}
+
+.interest-hint-text {
+  font-size: 0.78rem;
+  color: #78350f;
+  font-weight: 500;
+  flex: 1;
+}
+
+/* ==========================================================================
+   GMAIL & GOOGLE CALENDAR OFFLINE REMINDERS
+   ========================================================================== */
+.gmail-reminder-box {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
+
+.gmail-prompt {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.gmail-icon {
+  font-size: 1.4rem;
+}
+
+.gmail-prompt h4 {
+  font-size: 0.95rem;
+  color: #166534;
+  margin-bottom: 2px;
+}
+
+.gmail-prompt p {
+  font-size: 0.8rem;
+  color: #15803d;
+  line-height: 1.4;
+}
+
+.gmail-actions-row {
+  margin-bottom: 12px;
+}
+
+.btn-gcal-sync {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #16a34a;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.84rem;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: var(--transition);
+  box-shadow: 0 2px 4px rgba(22, 163, 74, 0.2);
+}
+
+.btn-gcal-sync:hover {
+  background: #15803d;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.gmail-form-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.gmail-email-input {
+  flex: 2;
+  min-width: 200px;
+  padding: 8px 12px;
+  font-size: 0.84rem;
+  background: #ffffff;
+}
+
+.gmail-lead-select {
+  flex: 1;
+  min-width: 110px;
+  padding: 8px 10px;
+  font-size: 0.84rem;
+  background: #ffffff;
+}
+
+.btn-gmail-send {
+  background: #0f766e;
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition);
+}
+
+.btn-gmail-send:hover {
+  background: #115e59;
+}
+
+.gmail-feedback {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+.gmail-feedback.success {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #86efac;
+}
+
+.gmail-feedback.error {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+}
+
+

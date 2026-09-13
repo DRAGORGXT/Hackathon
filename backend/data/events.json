@@ -1,5 +1,25 @@
 [
   {
+    "id": "evt-1789280665316-1swx2",
+    "title": "cyhi",
+    "club": "The Programming Club",
+    "category": "Technical",
+    "speaker": "",
+    "dateTime": "2026-09-13T13:00",
+    "venue": "Computer Center (CC-1)",
+    "capacity": 80,
+    "regLink": "",
+    "description": "session",
+    "avatar": "💻",
+    "status": "active",
+    "closedBy": null,
+    "closedReason": null,
+    "interestedCount": 0,
+    "createdAt": "2026-09-13T06:24:25.317Z",
+    "createdBy": "The Programming Club",
+    "updatedAt": "2026-09-13T06:28:12.713Z"
+  },
+  {
     "id": "evt-iiitj-tpc",
     "title": "CodeRumble 2026: Inter-Batch DSA & Competitive Programming Sprint",
     "club": "The Programming Club",
@@ -10,7 +30,12 @@
     "capacity": 120,
     "regLink": "https://hackerrank.com/coderumble-iiitj",
     "description": "Test your problem-solving skills across 5 algorithmic challenges covering Graphs, DP, and Trees. Top freshers receive direct interview waivers for the club council!",
-    "avatar": "💻"
+    "avatar": "💻",
+    "status": "active",
+    "closedBy": null,
+    "closedReason": null,
+    "createdAt": "2026-09-12T10:00:00.000Z",
+    "interestedCount": 42
   },
   {
     "id": "evt-iiitj-ers",
@@ -23,7 +48,12 @@
     "capacity": 70,
     "regLink": "",
     "description": "Hands-on hardware session: Interfacing ultrasonic and IR sensor arrays with ESP32 microcontrollers, PID tuning, and ROS2 simulation.",
-    "avatar": "🤖"
+    "avatar": "🤖",
+    "status": "active",
+    "closedBy": null,
+    "closedReason": null,
+    "createdAt": "2026-09-12T11:30:00.000Z",
+    "interestedCount": 28
   },
   {
     "id": "evt-iiitj-jazbaat",
@@ -36,7 +66,12 @@
     "capacity": 200,
     "regLink": "",
     "description": "Calling all voice modulators, scriptwriters, beatboxers, and actors for the Tarang 2026 flagship street play squad. No prior experience required!",
-    "avatar": "🎭"
+    "avatar": "🎭",
+    "status": "active",
+    "closedBy": null,
+    "closedReason": null,
+    "createdAt": "2026-09-12T12:00:00.000Z",
+    "interestedCount": 65
   },
   {
     "id": "evt-iiitj-saaz",
@@ -49,7 +84,12 @@
     "capacity": 180,
     "regLink": "",
     "description": "Relax after lectures with live acoustic covers, classical fusion, and open-mic slots for guitars, keyboards, cajon, and vocalists.",
-    "avatar": "🎵"
+    "avatar": "🎵",
+    "status": "active",
+    "closedBy": null,
+    "closedReason": null,
+    "createdAt": "2026-09-12T13:00:00.000Z",
+    "interestedCount": 54
   },
   {
     "id": "evt-iiitj-football",
@@ -62,7 +102,12 @@
     "capacity": 300,
     "regLink": "",
     "description": "High-voltage inter-hostel football clash under floodlights. Come out and cheer for your hostel wing!",
-    "avatar": "⚽"
+    "avatar": "⚽",
+    "status": "active",
+    "closedBy": null,
+    "closedReason": null,
+    "createdAt": "2026-09-12T14:00:00.000Z",
+    "interestedCount": 88
   },
   {
     "id": "evt-iiitj-racing",
@@ -75,7 +120,12 @@
     "capacity": 60,
     "regLink": "",
     "description": "Deep dive into Ansys Fluent CFD airflow simulations, roll cage safety factor calculations, and telemetry dashboard wiring for our Formula Student car.",
-    "avatar": "🏎️"
+    "avatar": "🏎️",
+    "status": "active",
+    "closedBy": null,
+    "closedReason": null,
+    "createdAt": "2026-09-12T15:00:00.000Z",
+    "interestedCount": 31
   },
   {
     "id": "evt-iiitj-aps",
@@ -88,7 +138,12 @@
     "capacity": 150,
     "regLink": "",
     "description": "Clear night sky telescope session using our 8-inch Dobsonian reflector. Learn how to locate celestial constellations, planetary alignments, and satellite passes.",
-    "avatar": "🔭"
+    "avatar": "🔭",
+    "status": "active",
+    "closedBy": null,
+    "closedReason": null,
+    "createdAt": "2026-09-12T16:00:00.000Z",
+    "interestedCount": 47
   },
   {
     "id": "evt-iiitj-chess",
@@ -101,6 +156,11 @@
     "capacity": 64,
     "regLink": "",
     "description": "FIDE-rules Swiss tournament. 6 rounds of blitz action to crown the campus Grandmaster! Open to all UG, PG, and PhD scholars.",
-    "avatar": "♟️"
+    "avatar": "♟️",
+    "status": "active",
+    "closedBy": null,
+    "closedReason": null,
+    "createdAt": "2026-09-12T17:00:00.000Z",
+    "interestedCount": 36
   }
 ]

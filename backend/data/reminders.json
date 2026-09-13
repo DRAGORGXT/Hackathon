@@ -1,0 +1,57 @@
+[
+  {
+    "id": "rem-email-1789280914805",
+    "eventId": "evt-1789280665316-1swx2",
+    "eventTitle": "cyhi",
+    "eventVenue": "Computer Center (CC-1)",
+    "eventDateTime": "2026-09-13T13:00",
+    "email": "karkipriyanshu74@gmail.com",
+    "leadMinutes": 60,
+    "createdAt": "2026-09-13T06:28:34.805Z",
+    "status": "scheduled"
+  },
+  {
+    "id": "rem-email-1789280842400",
+    "eventId": "evt-1789280665316-1swx2",
+    "eventTitle": "cyhi",
+    "eventVenue": "Computer Center (CC-1)",
+    "eventDateTime": "2026-09-13T12:58",
+    "email": "karkipriyanshu74@gmail.com",
+    "leadMinutes": 60,
+    "createdAt": "2026-09-13T06:27:22.400Z",
+    "status": "scheduled"
+  },
+  {
+    "id": "rem-email-1789280727932",
+    "eventId": "evt-1789280665316-1swx2",
+    "eventTitle": "cyhi",
+    "eventVenue": "Computer Center (CC-1)",
+    "eventDateTime": "2026-09-13T12:10",
+    "email": "karkipriyanshu74@gmail.com",
+    "leadMinutes": 60,
+    "createdAt": "2026-09-13T06:25:27.932Z",
+    "status": "scheduled"
+  },
+  {
+    "id": "rem-email-1789279636772",
+    "eventId": "evt-iiitj-tpc",
+    "eventTitle": "CodeRumble 2026: Inter-Batch DSA & Competitive Programming Sprint",
+    "eventVenue": "Computer Center (CC-1)",
+    "eventDateTime": "2026-09-13T16:00:00.000Z",
+    "email": "priyanshu@iiitdmj.ac.in",
+    "leadMinutes": 60,
+    "createdAt": "2026-09-13T06:07:16.772Z",
+    "status": "scheduled"
+  },
+  {
+    "id": "rem-email-1789279582845",
+    "eventId": "evt-iiitj-tpc",
+    "eventTitle": "CodeRumble 2026: Inter-Batch DSA & Competitive Programming Sprint",
+    "eventVenue": "Computer Center (CC-1)",
+    "eventDateTime": "2026-09-13T16:00:00.000Z",
+    "email": "student@iiitdmj.ac.in",
+    "leadMinutes": 60,
+    "createdAt": "2026-09-13T06:06:22.845Z",
+    "status": "scheduled"
+  }
+]

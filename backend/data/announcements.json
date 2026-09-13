@@ -1,0 +1,58 @@
+[
+  {
+    "id": "ann-1789280284048",
+    "category": "Student Senate",
+    "tag": "ANNOUNCEMENT",
+    "title": "Unauthorized announcement",
+    "date": "2026-09-13",
+    "createdBy": "The Programming Club"
+  },
+  {
+    "id": "ann-1789280284041",
+    "category": "tarang",
+    "tag": "TARANG ALERT",
+    "title": "Gymkhana Alert: Central OAT Sound System Maintenance Complete for Tarang 2026",
+    "date": "2026-09-13",
+    "createdBy": "Campus Administrator"
+  },
+  {
+    "id": "ann-1789280270835",
+    "category": "tarang",
+    "tag": "TARANG ALERT",
+    "title": "Gymkhana Alert: Central OAT Sound System Maintenance Complete for Tarang 2026",
+    "date": "2026-09-13",
+    "createdBy": "Campus Administrator"
+  },
+  {
+    "id": "ann-tarang-1",
+    "category": "tarang",
+    "tag": "TARANG 2026",
+    "title": "Tarang 2026 Annual Cultural Fest Announced: Oct 15-18! Flagship Nukkad Natak, Acoustic War & EDM Night auditions starting this week.",
+    "active": true,
+    "date": "2026-09-12"
+  },
+  {
+    "id": "ann-senate-1",
+    "category": "senate",
+    "tag": "SENATE BODY",
+    "title": "Gymkhana Senate Notice: SAC Hall & Audio-Visual equipment reservation open for all 25 clubs. Submit requisitions 48h prior.",
+    "active": true,
+    "date": "2026-09-11"
+  },
+  {
+    "id": "ann-abhikalpan-1",
+    "category": "abhikalpan",
+    "tag": "TECH FEST",
+    "title": "Abhikalpan 2026 Theme Reveal: Next-Gen AI & Mechatronics. Central India largest technical summit registrations open soon.",
+    "active": true,
+    "date": "2026-09-10"
+  },
+  {
+    "id": "ann-gusto-1",
+    "category": "gusto",
+    "tag": "SPORTS FEST",
+    "title": "Gusto Inter-Hostel Sports Championship: Hall 3 vs Hall 4 football clash under floodlights this Monday 5:30 PM!",
+    "active": true,
+    "date": "2026-09-09"
+  }
+]

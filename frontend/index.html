@@ -51,28 +51,51 @@
           ⚡ Test Alert
         </button>
 
-        <!-- Club Auth State (Dynamic) -->
+        <!-- Club/Admin Auth State (Dynamic) -->
         <div id="authContainer" class="auth-wrapper">
-          <!-- Shown when NOT logged in -->
+          <!-- Shown when NOT logged in (Student / Guest Mode) -->
           <div id="loggedOutView" class="auth-state">
-            <button id="btnOpenLoginModal" class="btn btn-secondary btn-login" title="Login as an official IIIT Jabalpur Club">
-              <span class="icon">🔐</span> Club Login
+            <button id="btnOpenLoginModal" class="btn btn-secondary btn-login" title="Login as Club Coordinator or Administrator">
+              <span class="icon">🔐</span> Portal Login
             </button>
-            <button id="btnOpenPostModal" class="btn btn-primary" title="Announce session (Requires club login)">
+            <button id="btnOpenPostModal" class="btn btn-primary" title="Announce session (Requires login)">
               <span class="icon">➕</span> Post Club Event
             </button>
           </div>
 
           <!-- Shown when LOGGED IN as a Club -->
-          <div id="loggedInView" class="auth-state hidden">
+          <div id="loggedInClubView" class="auth-state hidden">
             <div class="club-logged-badge" id="loggedClubBadge">
               <span id="loggedClubIcon">🏛️</span>
               <span id="loggedClubName">The Programming Club</span>
             </div>
+            <button id="btnOpenClubManageModal" class="btn btn-secondary" title="Manage your club's sessions">
+              <span class="icon">📋</span> Manage Sessions
+            </button>
             <button id="btnOpenPostModalAuth" class="btn btn-primary">
               <span class="icon">➕</span> Post Session
             </button>
             <button id="btnLogout" class="btn btn-text-logout" title="Log out of club portal">
+              Logout
+            </button>
+          </div>
+
+          <!-- Shown when LOGGED IN as Campus Administrator -->
+          <div id="loggedInAdminView" class="auth-state hidden">
+            <div class="admin-logged-badge" id="loggedAdminBadge">
+              <span class="admin-icon">🛡️</span>
+              <span class="admin-title">Campus Administrator</span>
+            </div>
+            <button id="btnOpenAdminDashboard" class="btn btn-admin-dash" title="Open Administrator Session Management Dashboard">
+              <span class="icon">⚡</span> Admin Dashboard
+            </button>
+            <button id="btnOpenAdminAnnouncementModal" class="btn btn-warning" style="background:#f59e0b; color:#1e1b4b; font-weight:700; border:none;" title="Publish announcement to sliding marquee ticker">
+              <span class="icon">📢</span> Post Announcement
+            </button>
+            <button id="btnOpenPostModalAdmin" class="btn btn-primary" title="Publish administrative or club announcement">
+              <span class="icon">➕</span> Post Session
+            </button>
+            <button id="btnAdminLogout" class="btn btn-text-logout" title="Log out of administrator portal">
               Logout
             </button>
           </div>
@@ -119,7 +142,20 @@
     </div>
   </header>
 
-  <!-- Main Container -->
+  <!-- Campus Sliding Announcement Ticker Bar (Senate, Gymkhana, Fests: Tarang, Abhikalpan, Gusto) -->
+  <div class="announcement-ticker-container" id="announcementTickerContainer">
+    <div class="ticker-badge">
+      <span class="ticker-badge-pulse"></span>
+      <span class="ticker-badge-icon">📢</span>
+      <span class="ticker-badge-text">CAMPUS NOTICES</span>
+    </div>
+    <div class="ticker-viewport">
+      <div class="ticker-track" id="tickerTrack">
+        <!-- Announcements injected dynamically by app.js -->
+        <div class="ticker-item"><span>✨ Loading official campus updates...</span></div>
+      </div>
+    </div>
+  </div>
   <main class="main-content">
     <!-- Hero / Campus Banner -->
     <section class="hero-section">
@@ -232,66 +268,85 @@
     </section>
   </main>
 
-  <!-- Modal: Club Login -->
+  <!-- Modal: Portal Login (Club / Administrator) -->
   <div id="clubLoginModal" class="modal hidden">
     <div class="modal-backdrop"></div>
     <div class="modal-card modal-auth-card">
       <div class="modal-header">
         <div class="modal-title">
           <span class="icon">🔐</span>
-          <h3>Official Club Login</h3>
+          <h3>ClubPulse Portal Login</h3>
         </div>
         <button class="btn-close-modal" id="btnCloseLoginModal">&times;</button>
       </div>
 
+      <!-- Role Selector Tabs -->
+      <div class="auth-role-tabs">
+        <button type="button" class="auth-tab active" id="tabClubLogin" data-role="club">
+          🏛️ Official Club
+        </button>
+        <button type="button" class="auth-tab" id="tabAdminLogin" data-role="admin">
+          🛡️ Administrator
+        </button>
+      </div>
+
       <form id="clubLoginForm" class="modal-form">
-        <div class="auth-notice-box">
-          <p>Only verified <strong>IIIT Jabalpur Clubs</strong> can announce sessions on the campus feed.</p>
-          <div class="credential-tip">
-            💡 <strong>Judge Demo Hint:</strong> Select any club; password is <code>iiitdmj123</code>.
+        <!-- Club Login Fieldset -->
+        <div id="clubLoginFields">
+          <div class="form-group">
+            <label for="loginClubSelect">Official Club Name <span class="req">*</span></label>
+            <select id="loginClubSelect">
+              <optgroup label="Technical Clubs">
+                <option value="The Programming Club">The Programming Club</option>
+                <option value="Racing Club">Racing Club</option>
+                <option value="Business and Management Club">Business and Management Club</option>
+                <option value="Electronics and Robotics Society">Electronics and Robotics Society</option>
+                <option value="CAD and 3D Printing">CAD and 3D Printing</option>
+                <option value="Astronomy and Physics Society">Astronomy and Physics Society</option>
+                <option value="Aerofabrication Club">Aerofabrication Club</option>
+              </optgroup>
+              <optgroup label="Cultural Clubs">
+                <option value="Saaz">Saaz</option>
+                <option value="Jazbaat">Jazbaat</option>
+                <option value="Aavartan">Aavartan</option>
+                <option value="Samvad">Samvad</option>
+                <option value="Abhivyakti">Abhivyakti</option>
+                <option value="Shutterbox">Shutterbox</option>
+              </optgroup>
+              <optgroup label="Sports Clubs">
+                <option value="Volleyball">Volleyball</option>
+                <option value="Football">Football</option>
+                <option value="Cricket">Cricket</option>
+                <option value="Basketball">Basketball</option>
+                <option value="Athletics">Athletics</option>
+                <option value="Gymnasium">Gymnasium</option>
+                <option value="Chess">Chess</option>
+                <option value="Carrom">Carrom</option>
+                <option value="Kabaddi">Kabaddi</option>
+                <option value="Table Tennis">Table Tennis</option>
+                <option value="Badminton">Badminton</option>
+                <option value="Lawn Tennis">Lawn Tennis</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="loginPassword">Club Password <span class="req">*</span></label>
+            <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" />
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="loginClubSelect">Select Your Club (Username) <span class="req">*</span></label>
-          <select id="loginClubSelect" required>
-            <optgroup label="Technical Clubs (7)">
-              <option value="The Programming Club">The Programming Club (TPC)</option>
-              <option value="Racing Club">Racing Club</option>
-              <option value="Business and Management Club">Business and Management Club</option>
-              <option value="Electronics and Robotics Society">Electronics and Robotics Society</option>
-              <option value="CAD and 3D Printing">CAD and 3D Printing</option>
-              <option value="Astronomy and Physics Society">Astronomy and Physics Society</option>
-              <option value="Aerofabrication Club">Aerofabrication Club</option>
-            </optgroup>
-            <optgroup label="Cultural Clubs (6)">
-              <option value="Saaz">Saaz (Music)</option>
-              <option value="Jazbaat">Jazbaat (Dramatics)</option>
-              <option value="Aavartan">Aavartan (Dance)</option>
-              <option value="Samvad">Samvad (Literature)</option>
-              <option value="Abhivyakti">Abhivyakti (Arts)</option>
-              <option value="Shutterbox">Shutterbox (Photography)</option>
-            </optgroup>
-            <optgroup label="Sports Clubs (12)">
-              <option value="Volleyball">Volleyball</option>
-              <option value="Football">Football</option>
-              <option value="Cricket">Cricket</option>
-              <option value="Basketball">Basketball</option>
-              <option value="Athletics">Athletics</option>
-              <option value="Gymnasium">Gymnasium</option>
-              <option value="Chess">Chess</option>
-              <option value="Carrom">Carrom</option>
-              <option value="Kabaddi">Kabaddi</option>
-              <option value="Table Tennis">Table Tennis</option>
-              <option value="Badminton">Badminton</option>
-              <option value="Lawn Tennis">Lawn Tennis</option>
-            </optgroup>
-          </select>
-        </div>
+        <!-- Administrator Login Fieldset -->
+        <div id="adminLoginFields" class="hidden">
+          <div class="form-group">
+            <label for="loginAdminUsername">Administrator Username <span class="req">*</span></label>
+            <input type="text" id="loginAdminUsername" placeholder="Enter administrator username" value="admin" autocomplete="username" />
+          </div>
 
-        <div class="form-group">
-          <label for="loginPassword">Club Password <span class="req">*</span></label>
-          <input type="password" id="loginPassword" placeholder="Enter club password (iiitdmj123)" required />
+          <div class="form-group">
+            <label for="loginAdminPassword">Administrator Password <span class="req">*</span></label>
+            <input type="password" id="loginAdminPassword" placeholder="••••••••" autocomplete="current-password" />
+          </div>
         </div>
 
         <div id="loginErrorMsg" class="form-error hidden"></div>
@@ -430,6 +485,16 @@
           </div>
         </div>
 
+        <!-- Interested & Crowd Attendance Counter -->
+        <div class="detail-interest-row">
+          <button id="btnToggleDetailInterested" class="btn-interested-action" title="Let the club know you plan to attend!">
+            <span class="star-icon">⭐</span>
+            <span id="detailInterestedBtnText">I'm Interested</span>
+            <span class="interested-pill-count" id="detailInterestedCount">0</span>
+          </button>
+          <span class="interest-hint-text">Clubs monitor this count to arrange venue seating and resources.</span>
+        </div>
+
         <div class="detail-desc-box">
           <h4>Session Details</h4>
           <p id="detailDescription">Event description...</p>
@@ -440,8 +505,8 @@
           <div class="reminder-prompt">
             <span class="reminder-icon">🔔</span>
             <div>
-              <h4>Get Notified Before This Session</h4>
-              <p>Choose when you want to receive an advance alert on your device:</p>
+              <h4>Browser Push Reminder</h4>
+              <p>Trigger an in-browser alert on your active device before the session:</p>
             </div>
           </div>
           
@@ -458,16 +523,279 @@
           </div>
         </div>
 
+        <!-- Gmail / Google Calendar Reminder Box (Works when browser is closed!) -->
+        <div class="gmail-reminder-box">
+          <div class="gmail-prompt">
+            <span class="gmail-icon">✉️</span>
+            <div>
+              <h4>Gmail &amp; Offline Notifications</h4>
+              <p>Will your browser be closed? Sync directly to your <strong>Google Calendar / Gmail</strong> so your phone notifies you automatically:</p>
+            </div>
+          </div>
+          <!-- 1-Click Instant Google Calendar Sync (Recommended) -->
+          <div class="gmail-actions-row">
+            <a id="btnGoogleCalendarSync" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-gcal-sync">
+              📅 Instant 1-Click Google Calendar &amp; Gmail Sync
+            </a>
+          </div>
+          <p style="font-size:0.75rem; color:#166534; margin-bottom:10px;">
+            💡 <strong>Fastest:</strong> Clicking the button above saves the session directly into your Google Calendar &amp; Gmail account with pre-set alarms on all your synced phones/devices!
+          </p>
+
+          <!-- Queue Server-Side Email Dispatch Form -->
+          <form id="gmailReminderForm" class="gmail-form-row">
+            <input type="email" id="inputReminderEmail" class="input-control gmail-email-input" placeholder="Enter your institute / personal Gmail..." required />
+            <select id="selectGmailLeadTime" class="select-control gmail-lead-select">
+              <option value="30">30m Before</option>
+              <option value="60" selected>1h Before</option>
+              <option value="1440">1 Day Before</option>
+            </select>
+            <button type="submit" id="btnSubmitGmailReminder" class="btn btn-gmail-send">
+              📧 Queue Email Reminder
+            </button>
+          </form>
+          <div id="gmailReminderFeedback" class="gmail-feedback hidden"></div>
+        </div>
+
         <!-- Action Links -->
         <div class="detail-actions">
           <button id="btnDownloadIcs" class="btn btn-outline">
-            📅 Add to Calendar (.ics)
+            💾 Download .ics File
           </button>
           <a id="btnExternalReg" href="#" target="_blank" class="btn btn-primary hidden">
             Registration Link ↗
           </a>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Modal: Administrator Session Management Dashboard -->
+  <div id="adminDashboardModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card modal-admin-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span class="icon">🛡️</span>
+          <div>
+            <h3>Campus Administrator &bull; Session Management</h3>
+            <p class="modal-subtitle">Full administrative control. View all sessions, verify organizing clubs, force-close, or cancel events with immediate campus feed synchronization.</p>
+          </div>
+        </div>
+        <button class="btn-close-modal" id="btnCloseAdminModal">&times;</button>
+      </div>
+
+      <!-- Admin Overview Metrics -->
+      <div class="admin-metrics-bar">
+        <div class="metric-box">
+          <span class="metric-val" id="adminTotalSessionsCount">0</span>
+          <span class="metric-lbl">Total Sessions</span>
+        </div>
+        <div class="metric-box active">
+          <span class="metric-val" id="adminActiveSessionsCount">0</span>
+          <span class="metric-lbl">Active on Feed</span>
+        </div>
+        <div class="metric-box closed">
+          <span class="metric-val" id="adminClosedSessionsCount">0</span>
+          <span class="metric-lbl">Closed by Admin</span>
+        </div>
+      </div>
+
+      <!-- Admin Search & Filter Controls -->
+      <div class="admin-toolbar">
+        <div class="admin-filter-group" id="adminFilterGroup">
+          <button class="admin-filter-pill active" data-filter="all">All Sessions</button>
+          <button class="admin-filter-pill" data-filter="active">Active Feed Only</button>
+          <button class="admin-filter-pill" data-filter="closed_admin">Closed by Admin</button>
+          <button class="admin-filter-pill" data-filter="closed_club">Closed by Club</button>
+        </div>
+        <input type="text" id="adminSearchInput" class="admin-search-box" placeholder="Search sessions, venues, or clubs..." />
+      </div>
+
+      <!-- Admin Sessions Data Table -->
+      <div class="admin-table-container">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Session Title</th>
+              <th>Organizing Club</th>
+              <th>Date & Venue</th>
+              <th>Interested</th>
+              <th>Status</th>
+              <th>Administrative Control</th>
+            </tr>
+          </thead>
+          <tbody id="adminSessionsTableBody">
+            <!-- Rendered by app.js -->
+          </tbody>
+        </table>
+        <div id="adminEmptyState" class="empty-state hidden" style="padding: 30px;">
+          <div class="empty-icon">📅</div>
+          <h4>No sessions match the selected filter</h4>
+        </div>
+      </div>
+
+      <div class="modal-footer" style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <button type="button" class="btn btn-warning" id="btnAdminDashNewAnnouncement" style="background:#f59e0b; color:#1e1b4b; font-weight:700; border:none;">
+            📢 Post Campus Announcement
+          </button>
+        </div>
+        <button type="button" class="btn btn-secondary" id="btnCloseAdminDashboardBtn">Close Dashboard</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Campus Announcement Management (Senate, Gymkhana, Fests) -->
+  <div id="adminAnnouncementModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span class="icon">📢</span>
+          <div>
+            <h3>Publish Campus Notice / Announcement</h3>
+            <p class="modal-subtitle">Broadcast real-time notices to the sliding marquee ticker under the header.</p>
+          </div>
+        </div>
+        <button class="btn-close-modal" id="btnCloseAnnouncementModal">&times;</button>
+      </div>
+
+      <form id="adminAnnouncementForm" style="padding: 20px;">
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label for="announcementCategory">Publishing Body / Fest <span class="req">*</span></label>
+            <select id="announcementCategory" class="select-control" required>
+              <option value="senate">Student Senate / Gymkhana</option>
+              <option value="tarang">Tarang (Annual Cultural Fest)</option>
+              <option value="abhikalpan">Abhikalpan (Annual Tech Fest)</option>
+              <option value="gusto">Gusto (Annual Sports Fest)</option>
+              <option value="general">Administration &amp; Director Office</option>
+            </select>
+          </div>
+
+          <div class="form-group flex-1">
+            <label for="announcementTag">Badge Tag <span class="req">*</span></label>
+            <input type="text" id="announcementTag" class="input-control" placeholder="e.g. SENATE BODY, FEST 2026, URGENT" required value="CAMPUS NOTICE" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="announcementTitle">Announcement Text / Message <span class="req">*</span></label>
+          <textarea id="announcementTitle" class="input-control" rows="3" placeholder="Enter headline/announcement for ticker bar..." required></textarea>
+          <small style="color:var(--text-muted); font-size:0.76rem;">This message will scroll in the top marquee ticker across all student devices.</small>
+        </div>
+
+        <div class="modal-footer" style="padding: 12px 0 0 0; margin-top: 16px;">
+          <button type="button" class="btn btn-secondary" id="btnCancelAnnouncement">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btnSubmitAnnouncement" style="background:#f59e0b; color:#1e1b4b; font-weight:700; border:none;">
+            🚀 Broadcast to Marquee
+          </button>
+        </div>
+      </form>
+
+      <!-- Existing Announcements List with Delete Option -->
+      <div style="padding: 0 20px 20px 20px;">
+        <h4 style="font-size:0.9rem; margin-bottom:10px; color:#1e1b4b;">Current Active Announcements on Ticker</h4>
+        <div id="adminAnnouncementsList" style="display:flex; flex-direction:column; gap:8px; max-height:220px; overflow-y:auto;">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Club Session Management ("Manage Sessions") -->
+  <div id="clubSessionsModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card modal-club-mgmt-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span class="icon">📋</span>
+          <div>
+            <h3>Manage Club Sessions</h3>
+            <p class="modal-subtitle" id="clubMgmtSubtitle">Review, edit, or close sessions published by your club.</p>
+          </div>
+        </div>
+        <button class="btn-close-modal" id="btnCloseClubMgmtModal">&times;</button>
+      </div>
+
+      <div id="clubSessionsList" class="club-mgmt-list">
+        <!-- Rendered by app.js -->
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btnCloseClubMgmtBtn">Close</button>
+        <button type="button" class="btn btn-primary" id="btnClubMgmtNewSession">➕ Post New Session</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Edit Campus Session -->
+  <div id="editSessionModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span class="icon">✏️</span>
+          <h3>Edit Campus Session</h3>
+        </div>
+        <button class="btn-close-modal" id="btnCloseEditModal">&times;</button>
+      </div>
+
+      <form id="editEventForm" class="modal-form">
+        <input type="hidden" id="editEventId" />
+        <div class="form-row">
+          <div class="form-group flex-2">
+            <label for="editEventTitle">Session Title <span class="req">*</span></label>
+            <input type="text" id="editEventTitle" required />
+          </div>
+          <div class="form-group flex-1">
+            <label for="editEventCategory">Category</label>
+            <select id="editEventCategory">
+              <option value="Technical">Technical</option>
+              <option value="Cultural">Cultural</option>
+              <option value="Sports">Sports</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label for="editEventSpeaker">Session Lead / Speaker</label>
+            <input type="text" id="editEventSpeaker" />
+          </div>
+          <div class="form-group flex-1">
+            <label for="editEventCapacity">Seats Limit</label>
+            <input type="number" id="editEventCapacity" min="0" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label for="editEventDateTime">Date & Time <span class="req">*</span></label>
+            <input type="datetime-local" id="editEventDateTime" required />
+          </div>
+          <div class="form-group flex-1">
+            <label for="editEventVenue">Campus Venue <span class="req">*</span></label>
+            <input type="text" id="editEventVenue" list="iiitjVenues" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="editEventRegLink">Registration Link (Optional)</label>
+          <input type="url" id="editEventRegLink" />
+        </div>
+
+        <div class="form-group">
+          <label for="editEventDesc">Description & Agenda <span class="req">*</span></label>
+          <textarea id="editEventDesc" rows="3" required></textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btnCancelEdit">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btnSaveEdit">Save Changes</button>
+        </div>
+      </form>
     </div>
   </div>
 
